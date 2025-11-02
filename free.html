@@ -201,7 +201,7 @@ body {
 <div id="startBOX" class="startCard text-center">
 <i class="fa-solid fa-rocket text-4xl mb-3 text-green-400"></i>
 <div class="text-lg font-bold mb-1">Made by Apkmodderkings</div>
-<div class="text-xs mb-3 opacity-70">Access this application for free.</div>
+<div class="text-xs mb-3 opacity-70">You can access this application for free.</div>
 <button id="contactButton" onclick="contact()" class="startBtn contactBtn">CONTACT</button>
 <button onclick="showSharePopup()" class="startBtn openAppBtn">OPEN APP</button>
 </div>
@@ -225,7 +225,7 @@ body {
 </div>
 
 <script>
-const TELE='https://t.me/apkmodderkings'
+const TELE='https://telegram.me/apkmodderkings'
 
 function contact(){
     const btn = document.getElementById('contactButton');
@@ -249,7 +249,7 @@ function contact(){
 
 let sharedCount=0;
 const REQUIRED_SHARES=5;
-const SHARE_MSG="Join now fast ✅: https://tgdream.net/";
+const SHARE_MSG="Is Telegram channel ko join kariye aur Loss Recovery kariye — aur bhi bohot cheezein milti hain yaha, jaise Premium Apps bilkul FREE! (YouTube bina ads ke, Remini bina ads ke, etc.)";
 
 function showSharePopup(){
     document.getElementById("sharePopup").classList.add("active");
@@ -264,7 +264,7 @@ function shareNow(){
         navigator.share({
             title:"Paid Game Trick",
             text:SHARE_MSG,
-            url:"https://tgdream.net/"
+            url:"https://telegram.me/apkmodderkings"
         }).then(()=>{
             sharedDone();
         }).catch(()=>{
