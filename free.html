@@ -313,7 +313,7 @@ pid.innerText=`${y}${m}${d}1000${10001+(n.getUTCHours()*60+n.getUTCMinutes())}`
 let sec=n.getUTCSeconds(),r=59-sec;pbar.style.width=(100-(r/60*100))+"%"
 let two=pid.innerText.slice(-2),s=[...two].reduce((a,b)=>a+(+b),0)
 if(s>9)s=[...String(s)].reduce((a,b)=>a+(+b),0)
-let res=s>=5?"BIG":"SMALL"
+let res=s>=8?"BIG":"SMALL"
 pred.className=res=="BIG"?"big":"small"
 pred.innerText=res
 if(res!==last&&last!==null){
