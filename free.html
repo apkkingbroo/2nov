@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minimal UI Access</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+<style>
+/* --- Minimal & Clean Base Style --- */
+body {
+    font-family: 'Inter', sans-serif;
+    background: #000;
+}
+/* Minimal Start Card */
+.startCard {
+    background: #111;
+    border-radius: 20px;
+    padding: 24px;
+    color: #fff;
+    width: 100%;
+    max-width: 320px;
+    box-shadow: 0 4px 15px rgba(0, 255, 135, 0.2);
+    border: 1px solid #222;
+}
+/* Clean Buttons */
+.startBtn {
+    border-radius: 14px;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 12px;
+    width: 100%;
+    margin-top: 10px;
+    transition: background-color 0.2s, transform 0.1s;
+}
+.contactBtn {
+    background: #007bff; /* Blue for Contact */
+    color: #fff;
+}
+.openAppBtn {
+    background: #00e676; /* Green for Open */
+    color: #000;
+}
+.startBtn:active {
+    transform: scale(0.98);
+}
+
+/* --- Minimal Share Popup --- */
+#sharePopup {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s;
+    z-index: 999;
+}
+#sharePopup.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+.popupCard {
+    background: #1c1c1c;
+    color: #fff;
+    padding: 20px;
+    border-radius: 18px;
+    text-align: center;
+    width: 90%;
+    max-width: 280px; /* Smaller size */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+}
+.popupBtn {
+    font-weight: 700;
+    padding: 10px 20px;
+    border-radius: 12px;
+    margin-top: 12px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.shareBtn {
+    background: #25d366; /* WhatsApp Green */
+    color: #fff;
+}
+.cancelBtn {
+    background: #333;
+    color: #fff;
+}
+.dialog-header {
+    margin-bottom: 15px;
+}
+.telegram-link {
+    font-size: 15px;
+    font-weight: bold;
+    color: #00f0ff;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+/* --- Floating Button and Minimal Panel --- */
+#floatBtn {
+    position: fixed;
+    right: 16px;
+    bottom: 18px;
+    width: 40px;
+    height: 40px;
+    background: #00f0ff;
+    color: #000;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 999;
+    box-shadow: 0 2px 10px rgba(0, 240, 255, 0.5);
+}
+
+/* Minimal Panel */
+#panel {
+    position: fixed;
+    left: 50%;
+    bottom: -300px;
+    transform: translateX(-50%);
+    width: 240px; /* Smallest size */
+    background: #111;
+    border-radius: 16px;
+    padding: 10px;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.4s;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+    border: 1px solid #222;
+}
+#panel.active {
+    opacity: 1;
+    bottom: 65px;
+}
+.box {
+    background: #1b1b1b;
+    border-radius: 12px;
+    padding: 8px;
+    color: #eee;
+    font-size: 12px;
+    margin-top: 6px;
+    text-align: center;
+}
+.big {
+    color: #00ff87;
+    font-size: 20px;
+    font-weight: 800;
+}
+.small {
+    color: #ff3b3b;
+    font-size: 20px;
+    font-weight: 800;
+}
+.prog {
+    height: 4px;
+    border-radius: 10px;
+    background: #333;
+    margin-top: 6px;
+    overflow: hidden;
+}
+.fill {
+    height: 100%;
+    width: 0;
+    background: #00f0ff;
+    transition: 0.4s;
+}
+.his {
+    margin-top: 6px;
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.tag {
+    background: #00f0ff;
+    color: #000;
+    padding: 3px 7px;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: 800;
+}
+.tag.small {
+    background: #ff3b3b;
+    color: #fff;
+}
+</style>
+</head>
+
+<body class="flex items-center justify-center min-h-screen p-6" id="main-body">
+
+<div id="startBOX" class="startCard text-center">
+<i class="fa-solid fa-rocket text-4xl mb-3 text-green-400"></i>
+<div class="text-lg font-bold mb-1">Minimal Premium UI</div>
+<div class="text-xs mb-3 opacity-70">Access the application.</div>
+<button id="contactButton" onclick="contact()" class="startBtn contactBtn">CONTACT</button>
+<button onclick="showSharePopup()" class="startBtn openAppBtn">OPEN APP</button>
+</div>
+
+<div id="sharePopup">
+<div class="popupCard">
+<div class="dialog-header">
+    <div class="font-bold text-lg">App Lock!</div>
+    <a href="https://t.me/apkmodderkings" target="_blank" class="telegram-link">
+        <i class="fa-brands fa-telegram"></i> APKMODDERKINGS
+    </a>
+</div>
+<div class="text-sm mt-2 opacity-80">Share to <span id="cnt">0</span>/5 people to unlock</div>
+
+<button class="popupBtn shareBtn" onclick="shareNow()">
+    <i class="fa-brands fa-whatsapp text-xl mr-2"></i> Share Now
+</button>
+
+<button class="popupBtn cancelBtn" onclick="closePop()">Cancel</button>
+</div>
+</div>
+
+<script>
+const TELE='https://t.me/apkmodderkings'
+
+function contact(){
+    const btn = document.getElementById('contactButton');
+    const originalText = btn.innerHTML;
+    
+    // 1. Show Loading Animation
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Contacting...';
+    btn.disabled = true;
+
+    // 2. Open link after a short delay (for animation effect)
+    setTimeout(() => {
+        window.location.href = TELE;
+        
+        // 3. Reset Button (optional, as the page usually navigates away)
+        // If the user navigates back, the button will be reset when the page reloads.
+        // For a smoother experience, we can reset it, though not strictly necessary.
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+    }, 1000); // 1 second delay
+}
+
+let sharedCount=0;
+const REQUIRED_SHARES=5;
+const SHARE_MSG="Join now fast ✅: https://tgdream.net/";
+
+function showSharePopup(){
+    document.getElementById("sharePopup").classList.add("active");
+}
+
+function closePop(){
+    document.getElementById("sharePopup").classList.remove("active");
+}
+
+function shareNow(){
+    if(navigator.share){
+        navigator.share({
+            title:"Paid Game Trick",
+            text:SHARE_MSG,
+            url:"https://tgdream.net/"
+        }).then(()=>{
+            sharedDone();
+        }).catch(()=>{
+            alert("❌ Share Failed");
+        });
+    } else {
+        // Use WhatsApp API for non-share-supported devices
+        window.open("https://api.whatsapp.com/send?text=" + encodeURIComponent(SHARE_MSG));
+        sharedDone(); // Assume link opening counts as shared for simplicity
+    }
+}
+
+function sharedDone(){
+    sharedCount++;
+    document.getElementById("cnt").innerText=sharedCount;
+    if(sharedCount>=REQUIRED_SHARES){
+        document.getElementById("sharePopup").classList.remove("active");
+        openApp();
+    }
+}
+
+function openApp(){
+document.body.innerHTML=`
+<iframe src="https://tgdream.net/" style="position:fixed;inset:0;border:0;width:100%;height:100%"></iframe>
+<div id='floatBtn'><i class="fa-solid fa-chart-simple text-lg"></i></div>
+<div id='panel'>
+<div class='text-center text-xs opacity-70'>Period ID</div>
+<div class='box' id='pid'>--</div>
+<div class='prog'><div id='pbar' class='fill'></div></div>
+<div class='text-center text-xs opacity-70 mt-3'>Prediction</div>
+<div class='box'><span id='predVal'>--</span></div>
+<div class='text-center text-xs opacity-70 mt-3'>History</div>
+<div class='his' id='his'></div>
+</div>`
+init()
+}
+
+function init(){
+const b=document.getElementById("floatBtn"),p=document.getElementById("panel")
+b.onclick=()=>p.classList.toggle("active")
+const pid=document.getElementById("pid"),pbar=document.getElementById("pbar"),pred=document.getElementById("predVal"),his=document.getElementById("his")
+let last=null;
+setInterval(()=>{
+let n=new Date(),y=n.getUTCFullYear(),m=String(n.getUTCMonth()+1).padStart(2,'0'),d=String(n.getUTCDate()).padStart(2,'0')
+pid.innerText=`${y}${m}${d}1000${10001+(n.getUTCHours()*60+n.getUTCMinutes())}`
+let sec=n.getUTCSeconds(),r=59-sec;pbar.style.width=(100-(r/60*100))+"%"
+let two=pid.innerText.slice(-2),s=[...two].reduce((a,b)=>a+(+b),0)
+if(s>9)s=[...String(s)].reduce((a,b)=>a+(+b),0)
+let res=s>=5?"BIG":"SMALL"
+pred.className=res=="BIG"?"big":"small"
+pred.innerText=res
+if(res!==last&&last!==null){
+let t=document.createElement("div")
+t.className="tag "+(res=="SMALL"?"small":"")
+t.innerText=res
+his.prepend(t)
+if(his.children.length>10)his.removeChild(his.lastChild)
+}
+last=res
+},1000)
+}
+</script>
+
+</body>
+</html>
